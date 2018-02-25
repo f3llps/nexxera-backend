@@ -1,5 +1,7 @@
 ﻿using BancoNix.Comum.Repositorios.Interfaces;
 using BancoNix.TransferenciaAPI.AcessaDados.Entity.Context;
+using BancoNix.TransferenciaAPI.API;
+using BancoNix.TransferenciaAPI.API.AutoMapper;
 using BancoNix.TransferenciaAPI.Dominio;
 using BancoNix.TransferenciaAPI.Repositorios.Entity;
 using System;
@@ -18,7 +20,9 @@ namespace WebApplication1.Controllers
 
         public IHttpActionResult Get()
         {
-            return Ok(_repositorioUsuario.Selecionar());
+            List<Usuario> lstUsuario = _repositorioUsuario.Selecionar();
+            List<UsuarioDTO> lstUsuarioDTO = AutoMapperManager.Instance.Mapper.Map<List<Usuario>, List<UsuarioDTO>>(lstUsuario);
+            return Ok(lstUsuarioDTO);
         }
 
         public IHttpActionResult Get(int? id)
@@ -28,6 +32,7 @@ namespace WebApplication1.Controllers
                 return BadRequest();
             }
             Usuario usuario = _repositorioUsuario.SelecionarPorId(id.Value);
+            UsuarioDTO usuarioDTO = AutoMapperManager.Instance.Mapper.Map<Usuario, UsuarioDTO>(usuario);
             if (usuario == null)
             {
                 return NotFound();
@@ -35,18 +40,26 @@ namespace WebApplication1.Controllers
             return Content(HttpStatusCode.Found, usuario);
         }
 
-        public IHttpActionResult Post([FromBody]Usuario usuario)
+        public IHttpActionResult Post([FromBody]UsuarioDTO usuarioDto)
         {
-            try
+            if (ModelState.IsValid)
             {
-                _repositorioUsuario.Inserir(usuario);
-                return Created($"{Request.RequestUri}/{usuario.id}", usuario);
-            }
-            catch (Exception ex)
-            {
-                return InternalServerError(ex);
-            }
+                try
+                {
+                    Usuario usuario = new Usuario();//*****
+                    _repositorioUsuario.Inserir(AutoMapperManager.Instance.Mapper.Map(usuarioDto, usuario));
+                    return Created($"{Request.RequestUri}/{usuarioDto.id}", usuarioDto);
+                }
+                catch (Exception ex)
+                {
+                    return InternalServerError(ex);
+                }
 
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
         }
 
         public IHttpActionResult Put(int? id, [FromBody]Usuario usuario)
