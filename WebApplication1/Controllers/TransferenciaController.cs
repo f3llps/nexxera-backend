@@ -6,8 +6,11 @@ using BancoNix.TransferenciaAPI.Dominio;
 using BancoNix.TransferenciaAPI.Repositorios.Entity;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Web.Http;
+using System.Web.Http.Results;
+using System.Web.Mvc;
 
 namespace WebApplication1.Controllers
 {
@@ -94,5 +97,30 @@ namespace WebApplication1.Controllers
                 return InternalServerError(ex);
             }
         }
+
+        public IHttpActionResult List(int skip, int take)
+        {
+                List<Transferencia> lstTransferencias = _repositorioTransferencia.Selecionar();
+                var teste = lstTransferencias.Skip(skip * take).Take(take).ToList();
+                List<TransferenciaDTO> lstUsuarioDTO = AutoMapperManager.Instance.Mapper.Map<List<Transferencia>, List<TransferenciaDTO>>(teste);
+
+            return Ok(lstUsuarioDTO);
+
+        }
+
+        ////TODO: Finalizar consulta linq
+        //public JsonResult Filter(string dataPrevisao, string anoReferencia, string fonteDados, string modoPrevisao)
+        //{
+        //    try
+        //    {
+        //        //DateTime dt = Convert.ToDateTime(date, CultureInfo.CreateSpecificCulture("pt-BR"));
+        //        //Estudo objEstudo = ctx.Estudos.FirstOrDefault(est => est.Data == dt);
+        //        return Json(new { success = true, id = 1 });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Json(new { success = false, message = ex.Message });
+        //    }
+        //}
     }
 }

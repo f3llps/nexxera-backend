@@ -34,5 +34,6 @@ namespace BancoNix.TransferenciaAPI.API
         [DataMember]
         [StringLength(maximumLength: 12, ErrorMessage = "O campo de Status deve ter no máximo 12 caracteres.")]
         public string status { get; set; }
+
     }
 }
