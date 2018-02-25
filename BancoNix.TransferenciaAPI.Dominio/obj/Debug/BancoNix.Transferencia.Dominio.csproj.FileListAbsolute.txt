@@ -1,0 +1,4 @@
+C:\Users\Fellipe\Desktop\TesteAngular\teste3\WebApplication1\BancoNix.TransferenciaAPI.Dominio\bin\Debug\BancoNix.TransferenciaAPI.Dominio.dll
+C:\Users\Fellipe\Desktop\TesteAngular\teste3\WebApplication1\BancoNix.TransferenciaAPI.Dominio\bin\Debug\BancoNix.TransferenciaAPI.Dominio.pdb
+C:\Users\Fellipe\Desktop\TesteAngular\teste3\WebApplication1\BancoNix.TransferenciaAPI.Dominio\obj\Debug\BancoNix.TransferenciaAPI.Dominio.dll
+C:\Users\Fellipe\Desktop\TesteAngular\teste3\WebApplication1\BancoNix.TransferenciaAPI.Dominio\obj\Debug\BancoNix.TransferenciaAPI.Dominio.pdb

@@ -1,0 +1,1 @@
+C:\Users\Fellipe\Desktop\TesteAngular\teste3\WebApplication1\BancoNix.Transferencia.AcessaDados.Entity\obj\Debug\BancoNix.Transferencia.AcessoDados.Entity.csprojResolveAssemblyReference.cache

@@ -1,0 +1,12 @@
+C:\Users\Fellipe\Desktop\TesteAngular\teste3\nexxera-backend\BancoNix.Comum.Repositorios.Entity\bin\Debug\BancoNix.Comum.Repositorios.Entity.dll.config
+C:\Users\Fellipe\Desktop\TesteAngular\teste3\nexxera-backend\BancoNix.Comum.Repositorios.Entity\bin\Debug\BancoNix.Comum.Repositorios.Entity.dll
+C:\Users\Fellipe\Desktop\TesteAngular\teste3\nexxera-backend\BancoNix.Comum.Repositorios.Entity\bin\Debug\BancoNix.Comum.Repositorios.Entity.pdb
+C:\Users\Fellipe\Desktop\TesteAngular\teste3\nexxera-backend\BancoNix.Comum.Repositorios.Entity\bin\Debug\ClassLibrary1.dll
+C:\Users\Fellipe\Desktop\TesteAngular\teste3\nexxera-backend\BancoNix.Comum.Repositorios.Entity\bin\Debug\EntityFramework.dll
+C:\Users\Fellipe\Desktop\TesteAngular\teste3\nexxera-backend\BancoNix.Comum.Repositorios.Entity\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Fellipe\Desktop\TesteAngular\teste3\nexxera-backend\BancoNix.Comum.Repositorios.Entity\bin\Debug\ClassLibrary1.pdb
+C:\Users\Fellipe\Desktop\TesteAngular\teste3\nexxera-backend\BancoNix.Comum.Repositorios.Entity\bin\Debug\EntityFramework.xml
+C:\Users\Fellipe\Desktop\TesteAngular\teste3\nexxera-backend\BancoNix.Comum.Repositorios.Entity\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Fellipe\Desktop\TesteAngular\teste3\nexxera-backend\BancoNix.Comum.Repositorios.Entity\obj\Debug\BancoNix.Comum.Repositorios.Entity.csprojResolveAssemblyReference.cache
+C:\Users\Fellipe\Desktop\TesteAngular\teste3\nexxera-backend\BancoNix.Comum.Repositorios.Entity\obj\Debug\BancoNix.Comum.Repositorios.Entity.dll
+C:\Users\Fellipe\Desktop\TesteAngular\teste3\nexxera-backend\BancoNix.Comum.Repositorios.Entity\obj\Debug\BancoNix.Comum.Repositorios.Entity.pdb
