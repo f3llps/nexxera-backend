@@ -16,7 +16,7 @@ namespace BancoNix.TransferenciaAPI.AcessaDados.Entity.Context
         public BancoNixDbContext()
         {
             Configuration.ProxyCreationEnabled = false;
-            Configuration.LazyLoadingEnabled = false;
+           // Configuration.LazyLoadingEnabled = false;
         }
 
     }

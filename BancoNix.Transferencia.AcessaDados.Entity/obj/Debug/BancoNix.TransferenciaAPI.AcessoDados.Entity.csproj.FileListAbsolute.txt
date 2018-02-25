@@ -27,3 +27,4 @@ C:\Users\Fellipe\Desktop\TesteAngular\nexxera-backend2\nexxera-backend\BancoNix.
 C:\Users\Fellipe\Desktop\TesteAngular\nexxera-backend2\nexxera-backend\BancoNix.Transferencia.AcessaDados.Entity\obj\Debug\BancoNix.Transferencia.AcessaDados.Entity.dll
 C:\Users\Fellipe\Desktop\TesteAngular\nexxera-backend2\nexxera-backend\BancoNix.Transferencia.AcessaDados.Entity\obj\Debug\BancoNix.Transferencia.AcessaDados.Entity.pdb
 C:\Users\Fellipe\Desktop\TesteAngular\nexxera-backend2\nexxera-backend\BancoNix.Transferencia.AcessaDados.Entity\obj\Debug\BancoNix.TransferenciaAPI.AcessaDados.Entity.Migrations.AlterColumn_Transferencia.resources
+C:\Users\Fellipe\Desktop\TesteAngular\nexxera-backend2\nexxera-backend\BancoNix.Transferencia.AcessaDados.Entity\obj\Debug\BancoNix.TransferenciaAPI.AcessaDados.Entity.Migrations.AlterTransferencia.resources

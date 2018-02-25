@@ -56,6 +56,10 @@
     <Compile Include="Migrations\201802250225379_AlterColumn_Transferencia.Designer.cs">
       <DependentUpon>201802250225379_AlterColumn_Transferencia.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802251549308_AlterTransferencia.cs" />
+    <Compile Include="Migrations\201802251549308_AlterTransferencia.Designer.cs">
+      <DependentUpon>201802251549308_AlterTransferencia.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -77,6 +81,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802250225379_AlterColumn_Transferencia.resx">
       <DependentUpon>201802250225379_AlterColumn_Transferencia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802251549308_AlterTransferencia.resx">
+      <DependentUpon>201802251549308_AlterTransferencia.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -42,7 +42,7 @@ namespace BancoNix.Comum.Repositorios.Entity
             _context.SaveChanges();
         }
 
-        public List<TDominio> Selecionar(Expression<Func<TDominio, bool>> where = null)
+        public virtual List<TDominio> Selecionar(Expression<Func<TDominio, bool>> where = null)
         {
             DbSet<TDominio> dbSet = _context.Set<TDominio>();
             if (where == null)
@@ -55,7 +55,7 @@ namespace BancoNix.Comum.Repositorios.Entity
             }
         }
 
-        public TDominio SelecionarPorId(TChave id)
+        public virtual TDominio SelecionarPorId(TChave id)
         {
             return _context.Set<TDominio>().Find(id);
         }

@@ -6,22 +6,20 @@ using BancoNix.TransferenciaAPI.Dominio;
 using BancoNix.TransferenciaAPI.Repositorios.Entity;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace WebApplication1.Controllers
 {
-    public class UsuarioController : ApiController
+    public class TransferenciaController : ApiController
     {
-        private IRepositorioBancoNix<Usuario, int> _repositorioUsuario
-            = new RepositorioUsuarios(new BancoNixDbContext());
+        private IRepositorioBancoNix<Transferencia, int> _repositorioTransferencia
+            = new RepositorioTransferencias(new BancoNixDbContext());
 
         public IHttpActionResult Get()
         {
-            List<Usuario> lstUsuario = _repositorioUsuario.Selecionar();
-            List<UsuarioDTO> lstUsuarioDTO = AutoMapperManager.Instance.Mapper.Map<List<Usuario>, List<UsuarioDTO>>(lstUsuario);
+            List<Transferencia> lstTransferencia = _repositorioTransferencia.Selecionar();
+            List<TransferenciaDTO> lstUsuarioDTO = AutoMapperManager.Instance.Mapper.Map<List<Transferencia>, List<TransferenciaDTO>>(lstTransferencia);
             return Ok(lstUsuarioDTO);
         }
 
@@ -31,24 +29,24 @@ namespace WebApplication1.Controllers
             {
                 return BadRequest();
             }
-            Usuario usuario = _repositorioUsuario.SelecionarPorId(id.Value);
-            UsuarioDTO usuarioDTO = AutoMapperManager.Instance.Mapper.Map<Usuario, UsuarioDTO>(usuario);
-            if (usuario == null)
+            Transferencia transferencia = _repositorioTransferencia.SelecionarPorId(id.Value);
+            TransferenciaDTO transferenciaDTO = AutoMapperManager.Instance.Mapper.Map<Transferencia, TransferenciaDTO>(transferencia);
+            if (transferencia == null)
             {
                 return NotFound();
             }
-            return Content(HttpStatusCode.Found, usuario);
+            return Content(HttpStatusCode.Found, transferenciaDTO);
         }
 
-        public IHttpActionResult Post([FromBody]UsuarioDTO usuarioDto)
+        public IHttpActionResult Post([FromBody]TransferenciaDTO transferenciaDTO)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    Usuario usuario = AutoMapperManager.Instance.Mapper.Map<UsuarioDTO, Usuario>(usuarioDto);//*****
-                    _repositorioUsuario.Inserir(usuario);
-                    return Created($"{Request.RequestUri}/{usuario.id}", usuarioDto);
+                    Transferencia transferencia = AutoMapperManager.Instance.Mapper.Map<TransferenciaDTO, Transferencia>(transferenciaDTO);
+                    _repositorioTransferencia.Inserir(transferencia);
+                    return Created($"{Request.RequestUri}/{transferenciaDTO.id}", transferenciaDTO);
                 }
                 catch (Exception ex)
                 {
@@ -62,7 +60,7 @@ namespace WebApplication1.Controllers
             }
         }
 
-        public IHttpActionResult Put(int? id, [FromBody]Usuario usuario)
+        public IHttpActionResult Put(int? id, [FromBody]Transferencia transferencia)
         {
             try
             {
@@ -70,17 +68,14 @@ namespace WebApplication1.Controllers
                 {
                     return BadRequest();
                 }
-                usuario.id = id.Value;
-                _repositorioUsuario.Atualizar(usuario);
+                transferencia.id = id.Value;
+                _repositorioTransferencia.Atualizar(transferencia);
                 return Ok();
             }
             catch (Exception ex)
             {
-
                 return InternalServerError(ex);
             }
-
-
         }
         public IHttpActionResult Delete(int? id)
         {
@@ -89,14 +84,13 @@ namespace WebApplication1.Controllers
                 if (!id.HasValue)
                 {
                     return BadRequest();
-
                 }
-                _repositorioUsuario.ExcluirPorId(id.Value);
+                _repositorioTransferencia.ExcluirPorId(id.Value);
+
                 return Ok();
             }
             catch (Exception ex)
             {
-
                 return InternalServerError(ex);
             }
         }
