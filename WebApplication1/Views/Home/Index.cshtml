@@ -8,7 +8,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.css">
-<link href="Content/style.css" rel="stylesheet">
+<link href="../Content/style.css" rel="stylesheet">
 
 
 <script>
@@ -22,7 +22,7 @@
     //-------------------------------
     // Valores que podem ser setados:
     //-------------------------------
-    const maxNumPages = 02 ;     // Define o número máximo de páginas mostradas na paginação.
+    const maxNumPages = 02;     // Define o número máximo de páginas mostradas na paginação.
     const take = 03;            // Define o número de registros por página.
 
     //Click no botão Anterior da paginação.
@@ -128,17 +128,22 @@
     }
 
     function postCasos() {
+
         var objCasos = new Object();
-        objCasos.estudoId = $("#id").val();
         objCasos.skip = skip;
         objCasos.take = take;
 
-        $.getJSON("http://localhost:54450/api/Transferencia/", function (res) {
+
+        $.post('../api/Transferencia?skip=' + skip + '&take=' + take + '&nome=' + $('input').val(), null, function (res) {
+
             $("#tblCasos").find('tbody').html('');
             var count = 0;
+            var sumValor = 0;
+
             $.each(res, function (index, value) {
                 count++;
-                var $tr = ($('<tr>').append($('<td>').append(value.id)).append($('<td>').append('11/11/1111'))
+                sumValor += value.valor;
+                var $tr = ($('<tr>').append($('<td>').append(value.id))
                     .append($('<td>').append(value.beneficiario.nome))
                     .append($('<td>').append(value.pagador.nome))
                     .append($('<td>').append(value.tipo))
@@ -149,7 +154,7 @@
             });
 
             let pages = count / take;
-            $("#totalItens").text("Total de transferências: " + count);
+            $("#totalItens").text("Total de transferências: " + count + ". Somatória: " + sumValor + ".");
 
             let remainder = count % take;
 
@@ -165,7 +170,8 @@
             //HTML 'fixos': botões << e Anterior.
             $("ul.pagination").append("<li class='page-item disabled' id='previous' '><a class='page-link primeira-pagina' href='javascript:void(0);' tabindex='-1'>&laquo;</a></li>"); // botão <<
             $("ul.pagination").append("<li class='page-item '><a class='page-link pagina-anterior' href='javascript:void(0);' aria-label='Página Anterior'><span aria-hidden='true'>Anterior</span></a></li>");
-            debugger;
+
+
             //HTML 'dinâmico': registros do grid.
             for (var i = 1, checkLastPage = lastPagePreviousPagination; i <= maxNumPages && checkLastPage < pagesTotal; i++ , checkLastPage++) {
                 var xxx = $("<li class='page-item'><a class='page-link'>" + (parseInt(i) + parseInt(lastPagePreviousPagination)) + "</a></li>").click(function () {
@@ -199,11 +205,11 @@
 
             desabilitarBotoesPaginacao(indexPageCurrent);
 
-        });
 
-        //Realizar fadeIn no grid
-        $("#tblCasos").hide();
-        $("#tblCasos").fadeIn("fast");
+            //Realizar fadeIn no grid
+            $("#tblCasos").hide();
+            $("#tblCasos").fadeIn("fast");
+        });
     }
 
     function desabilitarBotoesPaginacao(indexPageCurrent) {
@@ -250,6 +256,10 @@
             primeiraPagina();
         });
 
+        $(document).on("change", "input", function () {
+            primeiraPagina();
+        });
+
         $(document).on("click", "a.pagina-anterior", function () {
             paginaAnterior();
         });
@@ -262,50 +272,7 @@
             ultimaPagina();
         });
 
-
         postCasos();
-
-        // Evento de mudança na data do calendário
-        $('#datePicker-Id .form-control').change(function () {
-            var date = $('.form-control')[0].value;
-            $.post("transferencia/list/", { skip: skip, take: take }, function (res) {
-                if (res.success) {
-                    if (res.id != null) {
-                        $("#id").val(res.id);
-                        skip = 0;
-                        pagesTotal = 0;
-                        lastPagePreviousPagination = 0;
-                        primeiraPagina();
-                    } else {
-                    }
-                }
-                else {
-                    alert(res.message);
-                }
-            });
-        });
-
-        //$('#anoReferencia').change(function () {
-        //    var date = $('.form-control')[0].value;
-        //    //TODO: serialize;
-        //    $.post("/estudos/filter", { dataPrevisao: $("#dataPrevisao").val(), anoReferencia: $("#anoReferencia").val(), fonteDados: $("#fonteDados").val(), modoPrevisao: $("#modoPrevisao").val(), }, function (res) {
-        //        if (res.success) {
-        //            if (res.id != null) {
-        //                $("#id").val(res.id);
-        //                skip = 0;
-        //                pagesTotal = 0;
-        //                lastPagePreviousPagination = 0;
-        //                primeiraPagina();
-        //            } else {
-        //            }
-        //        }
-        //        else {
-        //            alert(res.message);
-        //        }
-        //    });
-        //});
-
-
     });
 </script>
 
@@ -316,35 +283,11 @@
     <div class="animated fadeIn">
 
         <div class="row">
-            <div class="col-lg-2">
-                <div class="form-group">
-                    <label>Data:</label>
-                    <div id="datePicker-Id" class="input-group date datepicker" data-provide="datepicker" data-date-autoclose="true" ">
-                        <input type="text" class="form-control" style="height: 25px; margin-top: -5px;" />
-                        <div class="input-group-addon" style="margin-top: -5px; height: 24px;">
-                            <span style="margin-left: -8px;"><img src="../Content/calendar.svg" alt="calendar" height="12" width="12" ></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <div class="col-lg-2">
                 <div class="form-group">
-                    <label for="fonteDados">Beneficiário:</label>
-                    <select class="form-control" id="fonteDados">
-                        <option></option>
-                        <option>Fellipe</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="col-lg-2">
-                <div class="form-group">
-                    <label for="modo-previsao">Pagador</label>
-                    <select class="form-control" id="pagador">
-                        <option></option>
-                        <option>João do caminhão</option>
-                    </select>
+                    <label for="modo-previsao">Busca por nome:</label>
+                    <input name="buscaPorNome" style="width: 500px" />
                 </div>
             </div>
         </div>
@@ -359,14 +302,12 @@
                         <table id="tblCasos" class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>Id</th>
-                                    <th>Data</th>
+                                    <th>Transferência</th>
                                     <th>Beneficiário</th>
                                     <th>Pagador</th>
                                     <th>Tipo</th>
                                     <th>Valor</th>
                                     <th>Status</th>
-                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody></tbody>

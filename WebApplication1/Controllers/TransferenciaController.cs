@@ -32,12 +32,15 @@ namespace WebApplication1.Controllers
             {
                 return BadRequest();
             }
+
             Transferencia transferencia = _repositorioTransferencia.SelecionarPorId(id.Value);
-            TransferenciaDTO transferenciaDTO = AutoMapperManager.Instance.Mapper.Map<Transferencia, TransferenciaDTO>(transferencia);
             if (transferencia == null)
             {
                 return NotFound();
             }
+
+            TransferenciaDTO transferenciaDTO = AutoMapperManager.Instance.Mapper.Map<Transferencia, TransferenciaDTO>(transferencia);
+
             return Content(HttpStatusCode.Found, transferenciaDTO);
         }
 
@@ -98,29 +101,19 @@ namespace WebApplication1.Controllers
             }
         }
 
-        public IHttpActionResult List(int skip, int take)
+        public IHttpActionResult List(int skip, int take, string nome)
         {
-                List<Transferencia> lstTransferencias = _repositorioTransferencia.Selecionar();
-                var teste = lstTransferencias.Skip(skip * take).Take(take).ToList();
-                List<TransferenciaDTO> lstUsuarioDTO = AutoMapperManager.Instance.Mapper.Map<List<Transferencia>, List<TransferenciaDTO>>(teste);
+            IEnumerable<Transferencia> lstTransferencias = _repositorioTransferencia.Selecionar().ToList();
+            if (!String.IsNullOrEmpty(nome))
+            {
+                lstTransferencias = lstTransferencias.Where(x => x.Beneficiario.nome.Contains(nome) || x.Pagador.nome.Contains(nome));
+            }
+
+            var teste = lstTransferencias.Skip(skip * take).Take(take);
+            IEnumerable<TransferenciaDTO> lstUsuarioDTO = AutoMapperManager.Instance.Mapper.Map<IEnumerable<Transferencia>, IEnumerable<TransferenciaDTO>>(teste);
 
             return Ok(lstUsuarioDTO);
 
         }
-
-        ////TODO: Finalizar consulta linq
-        //public JsonResult Filter(string dataPrevisao, string anoReferencia, string fonteDados, string modoPrevisao)
-        //{
-        //    try
-        //    {
-        //        //DateTime dt = Convert.ToDateTime(date, CultureInfo.CreateSpecificCulture("pt-BR"));
-        //        //Estudo objEstudo = ctx.Estudos.FirstOrDefault(est => est.Data == dt);
-        //        return Json(new { success = true, id = 1 });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Json(new { success = false, message = ex.Message });
-        //    }
-        //}
     }
 }
