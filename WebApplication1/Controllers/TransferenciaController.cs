@@ -2,6 +2,7 @@
 using BancoNix.TransferenciaAPI.AcessaDados.Entity.Context;
 using BancoNix.TransferenciaAPI.API;
 using BancoNix.TransferenciaAPI.API.AutoMapper;
+using BancoNix.TransferenciaAPI.API.Filters;
 using BancoNix.TransferenciaAPI.Dominio;
 using BancoNix.TransferenciaAPI.Repositorios.Entity;
 using System;
@@ -44,10 +45,10 @@ namespace WebApplication1.Controllers
             return Content(HttpStatusCode.Found, transferenciaDTO);
         }
 
+        [ApplyModelValidation]
         public IHttpActionResult Post([FromBody]TransferenciaDTO transferenciaDTO)
         {
-            if (ModelState.IsValid)
-            {
+
                 try
                 {
                     Transferencia transferencia = AutoMapperManager.Instance.Mapper.Map<TransferenciaDTO, Transferencia>(transferenciaDTO);
@@ -59,14 +60,10 @@ namespace WebApplication1.Controllers
                     return InternalServerError(ex);
                 }
 
-            }
-            else
-            {
-                return BadRequest(ModelState);
-            }
         }
 
-        public IHttpActionResult Put(int? id, [FromBody]Transferencia transferencia)
+        [ApplyModelValidation]
+        public IHttpActionResult Put(int? id, [FromBody]TransferenciaDTO transferenciaDTO)
         {
             try
             {
@@ -74,6 +71,7 @@ namespace WebApplication1.Controllers
                 {
                     return BadRequest();
                 }
+                Transferencia transferencia = AutoMapperManager.Instance.Mapper.Map<TransferenciaDTO, Transferencia>(transferenciaDTO);
                 transferencia.id = id.Value;
                 _repositorioTransferencia.Atualizar(transferencia);
                 return Ok();
@@ -83,6 +81,7 @@ namespace WebApplication1.Controllers
                 return InternalServerError(ex);
             }
         }
+
         public IHttpActionResult Delete(int? id)
         {
             try
