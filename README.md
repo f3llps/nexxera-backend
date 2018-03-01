@@ -7,8 +7,6 @@
 2.1 Pode ser feita uma interação da API com o Postman, por exemplo, baseando na estrutura do JSON disponibilizado no email.
 
 3. TODO: 
-3.1 A listagem das transferências necessita de filtros por data, pagador e beneficiário;
 3.2 A exclusão da transferência deve ser lógica;
-3.3
 
 fellipeversiani@gmail.com
